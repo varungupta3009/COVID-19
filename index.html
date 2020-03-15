@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>COVID-19 Live Count INDIA</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css'>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+
+  <body>
+
+    <div class="cells"></div>
+    <section class="hero is-black is-fullheight has-text-centered">
+      <div class="hero-head">
+        <div class="container">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg" alt="Flag of India" width=150
+            height=150>
+          <h1 class="main title is-size-4">SARS-CoV-2 COVID-19 Live Case Count</h1>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-uppercase">
+            <div class="column">
+              <h2 class="subtitle has-text-primary is-size-3">Confirmed</h2>
+              <h1 class="title confirmed has-text-primary is-size-1">Loading...</h1>
+            </div>
+            <div class="column">
+              <h2 class="subtitle has-text-link is-size-3">Recovered</h2>
+              <h1 class="title recovered has-text-link is-size-1">Loading...</h1>
+            </div>
+            <div class="column">
+              <h2 class="subtitle has-text-danger is-size-3">Deceased</h2>
+              <h1 class="title deceased has-text-danger is-size-1">Loading...</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js'></script>
+    <script src='https://www.vantajs.com/dist/vanta.cells.min.js'></script>
+    <script src="./script.js"></script>
+
+  </body>
+
+</html>
