@@ -1,3 +1,8 @@
 img {
-  margin: 2% 0;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.hero-head {
+  padding: 1%;
 }
