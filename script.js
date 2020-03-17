@@ -2,14 +2,17 @@ var cases = {
   confirmed: "0",
   recovered: "-1",
   deceased: "-1",
+  todayConfirmed: 0,
+  todayRecovered: 0,
+  todayDeceased: 0,
   timeout: 3000,
   cells: true,
-  getScores: () => {
+  getCases: () => {
     XHR = new XMLHttpRequest()
 
     XHR.timeout = cases.timeout
     XHR.ontimeout = () => {
-      $(".tag").removeClass("is-danger").addClass("is-black")
+      $(".hero-head .tag").removeClass("is-danger").addClass("is-black")
       timeout *= 2
     }
 
@@ -21,6 +24,9 @@ var cases = {
           cases.confirmed = country.cases
           cases.recovered = country.recovered
           cases.deceased = country.deaths
+          cases.todayConfirmed = country.todayCases
+          cases.todayRecovered = country.todayRecovered
+          cases.todayDeceased = country.todayDeaths
           break
         }
       }
@@ -28,8 +34,11 @@ var cases = {
       $(".confirmed").text(cases.confirmed)
       $(".recovered").text(cases.recovered)
       $(".deceased").text(cases.deceased)
+      if (cases.todayConfirmed > 0) $(".hero-body .is-warning").text("+" + cases.todayConfirmed).show()
+      if (cases.todayRecovered > 0) $(".hero-body .is-link").text("+" + cases.todayRecovered).show()
+      if (cases.todayDeceased > 0) $(".hero-body .is-dark").text("+" + cases.todayDeceased).show()
 
-      $(".tag").removeClass("is-black").addClass("is-danger")
+      $(".hero-head .tag").removeClass("is-black").addClass("is-danger")
     }
 
     XHR.onloadend = () => {
@@ -38,7 +47,7 @@ var cases = {
           el: ".cells",
           mouseControls: true,
           touchControls: true,
-          minHeight: 200.0,
+          minHeight: $(".hero-head").outerHeight(),
           minWidth: 200.0,
           scale: 1.0,
           color1: 0x0,
@@ -49,7 +58,7 @@ var cases = {
     }
 
     XHR.onerror = () => {
-      $(".tag").removeClass("is-danger").addClass("is-black")
+      $(".hero-head .tag").removeClass("is-danger").addClass("is-black")
 
       Papa.parse(
         "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
@@ -60,7 +69,7 @@ var cases = {
           complete: function (results) {
             cases.confirmed = results.data[16].pop()
             $(".confirmed").innerHTML = cases.confirmed
-            $(".tag").removeClass("is-black").addClass("is-danger")
+            $(".hero-head .tag").removeClass("is-black").addClass("is-danger")
           }
         }
       )
@@ -74,7 +83,7 @@ var cases = {
           complete: function (results) {
             cases.recovered = results.data[16].pop()
             $(".recovered").innerHTML = cases.recovered
-            $(".tag").removeClass("is-black").addClass("is-danger")
+            $(".hero-head .tag").removeClass("is-black").addClass("is-danger")
           }
         }
       )
@@ -88,7 +97,7 @@ var cases = {
           complete: function (results) {
             cases.deceased = results.data[16].pop()
             $(".deceased").innerHTML = cases.deceased
-            $(".tag").removeClass("is-black").addClass("is-danger")
+            $(".hero-head .tag").removeClass("is-black").addClass("is-danger")
           }
         }
       )
@@ -99,48 +108,5 @@ var cases = {
   }
 }
 
-oldScores = () => {
-  Papa.parse(
-    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv",
-    {
-      download: true,
-      dynamicTyping: true,
-      // header: true,
-      complete: function (results) {
-        cases.confirmed = results.data[16].pop()
-        $(".confirmed").innerHTML = cases.confirmed
-      }
-    }
-  )
-
-  Papa.parse(
-    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv",
-    {
-      download: true,
-      dynamicTyping: true,
-      // header: true,
-      complete: function (results) {
-        cases.recovered = results.data[16].pop()
-        $(".recovered").innerHTML = cases.recovered
-      }
-    }
-  )
-
-  Papa.parse(
-    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv",
-    {
-      download: true,
-      dynamicTyping: true,
-      // header: true,
-      complete: function (results) {
-        cases.deceased = results.data[16].pop()
-        $(".deceased").innerHTML = cases.deceased
-      }
-    }
-  )
-
-  $(".tag").removeClass("is-black").addClass("is-danger")
-}
-
-cases.getScores()
-setInterval(cases.getScores, 5000)
+cases.getCases()
+setInterval(cases.getCases, 5000)

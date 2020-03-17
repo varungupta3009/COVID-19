@@ -1,8 +1,26 @@
-img {
-  margin-top: 1%;
-  margin-bottom: 2%;
+html,
+body {
+  margin: 0;
+  font-family: -apple-system,
+    BlinkMacSystemFont,
+    "Google Sans Text Beta";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .hero-head {
-  padding: 1%;
+  padding: 1vh;
+  font-family: "Google Sans";
+}
+
+.hero-body .tag {
+  font-weight: bold;
+  padding: 1% 2%;
+  display: none;
+}
+
+img {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  width: 25%;
 }
